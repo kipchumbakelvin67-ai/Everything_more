@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Everything More</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F4F7FB;--surface:#fff;--ink:#14213D;--muted:#5B6783;--line:#DCE3EF;--accent:#2F5BFF;--r:18px;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F1626;--surface:#18223A;--ink:#EEF2FB;--muted:#9AA7C4;--line:#2A3757}}
+:root[data-theme="dark"]{--bg:#0F1626;--surface:#18223A;--ink:#EEF2FB;--muted:#9AA7C4;--line:#2A3757}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Figtree,system-ui,sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque",Figtree,system-ui,sans-serif;margin:0;line-height:1.1}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0}
+.logo{font:800 22px "Bricolage Grotesque",sans-serif;letter-spacing:-.02em}
+.logo i{font-style:normal;color:var(--accent)}
+button,input,select,textarea{font:inherit;color:inherit}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:9px 16px;cursor:pointer;font-weight:600}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.hero{padding:34px 0 22px}
+.hero h1{font-size:clamp(40px,9vw,76px);font-weight:800;letter-spacing:-.035em;max-width:11ch}
+.hero p{color:var(--muted);max-width:46ch;font-size:18px;margin:14px 0 22px}
+.search{width:100%;max-width:520px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:13px 20px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 26px}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;padding-bottom:30px}
+body[data-view="list"] .grid{grid-template-columns:1fr}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:10px}
+.top{display:flex;gap:12px;align-items:center}
+.ico{width:52px;height:52px;border-radius:14px;background:color-mix(in srgb,var(--accent) 14%,var(--surface));display:grid;place-items:center;font-size:28px;flex:none}
+.card h3{font-size:19px}
+.cat{color:var(--muted);font-size:14px}
+.card p{margin:0;color:var(--muted);font-size:15px;flex:1}
+.dl{display:flex;gap:6px;flex-wrap:wrap}
+.dl a{font-size:14px;font-weight:600;text-decoration:none;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:5px 12px}
+.dl a:hover{background:var(--accent);color:#fff}
+.del{align-self:flex-start;border:0;background:none;color:#C0392B;cursor:pointer;padding:0;font-size:14px}
+.empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:40px 10px;border:1px dashed var(--line);border-radius:var(--r)}
+section.get{background:var(--ink);color:var(--bg);border-radius:26px;padding:30px;margin:10px 0 40px}
+section.get h2{font-size:clamp(26px,5vw,38px)}
+section.get p{opacity:.8;margin:8px 0 18px}
+section.get .dl a{color:var(--bg);border-color:var(--bg)}
+section.get .dl a:hover{background:var(--bg);color:var(--ink)}
+section.get .dl a.off{opacity:.45;pointer-events:none}
+.panel{position:fixed;inset:0 0 0 auto;width:min(360px,100%);background:var(--surface);border-left:1px solid var(--line);padding:calc(20px + env(safe-area-inset-top,0px)) 20px 20px;transform:translateX(105%);transition:transform .25s;overflow:auto;z-index:20}
+.panel.open{transform:none}
+.panel h2{font-size:22px;margin-bottom:14px}
+.panel label{display:block;font-weight:600;margin:14px 0 6px}
+.panel input,.panel select,.panel textarea{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:9px 12px}
+.sw{display:flex;gap:8px;flex-wrap:wrap}
+.sw button{width:34px;height:34px;border-radius:50%;border:3px solid var(--surface);box-shadow:0 0 0 1px var(--line);cursor:pointer}
+.sw button[aria-pressed="true"]{box-shadow:0 0 0 3px var(--ink)}
+.seg{display:flex;gap:6px}.seg .btn{flex:1;padding:8px}.seg .btn[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.owner{display:none}.is-owner .owner{display:block}
+@media (prefers-reduced-motion:reduce){.panel{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="logo">Everything<i>More</i></div>
+  <div style="display:flex;gap:8px"><button class="btn owner" id="addBtn">Add app</button><button class="btn" id="custBtn">Customise</button></div>
+</header>
+<div class="hero">
+  <h1>Every app, one store.</h1>
+  <p>Browse apps of every kind and download them from Google Play, GitHub or straight from this page.</p>
+  <input class="search" id="q" type="search" placeholder="Search apps" aria-label="Search apps">
+  <div class="chips" id="chips"></div>
+</div>
+<div class="grid" id="grid"></div>
+<section class="get">
+  <h2>Get the Everything More app</h2>
+  <p>Install the store on your phone to browse and download apps on the go.</p>
+  <div class="dl" id="getLinks"></div>
+</section>
+</div>
+
+<aside class="panel" id="cust" aria-label="Customise">
+  <h2>Customise</h2>
+  <label>Accent colour</label>
+  <div class="sw" id="sw"></div>
+  <label>Theme</label>
+  <div class="seg" id="theme"><button class="btn" data-v="">Auto</button><button class="btn" data-v="light">Light</button><button class="btn" data-v="dark">Dark</button></div>
+  <label>Layout</label>
+  <div class="seg" id="view"><button class="btn" data-v="grid">Grid</button><button class="btn" data-v="list">List</button></div>
+  <div class="owner" style="margin-top:22px"><h2>Store links</h2>
+    <label for="lPlay">Google Play link</label><input id="lPlay" type="url" placeholder="https://play.google.com/…">
+    <label for="lGit">GitHub link</label><input id="lGit" type="url" placeholder="https://github.com/…">
+    <label for="lWeb">Direct download link</label><input id="lWeb" type="url" placeholder="https://…">
+    <button class="btn pri" id="saveLinks" style="margin-top:14px">Save links</button></div>
+  <button class="btn" id="closeCust" style="margin-top:22px">Close</button>
+</aside>
+
+<aside class="panel" id="add" aria-label="Add app">
+  <h2>Add an app</h2>
+  <label for="aName">Name</label><input id="aName">
+  <label for="aIcon">Icon (an emoji)</label><input id="aIcon" maxlength="4" placeholder="🎮">
+  <label for="aCat">Category</label><input id="aCat" placeholder="Games, Tools, Music…">
+  <label for="aDesc">Description</label><textarea id="aDesc" rows="3"></textarea>
+  <label for="aPlay">Google Play link</label><input id="aPlay" type="url">
+  <label for="aGit">GitHub link</label><input id="aGit" type="url">
+  <label for="aWeb">Direct download link</label><input id="aWeb" type="url">
+  <div style="display:flex;gap:8px;margin-top:18px"><button class="btn pri" id="saveApp">Add app</button><button class="btn" id="closeAdd">Cancel</button></div>
+</aside>
+
+<script>
+const $=s=>document.querySelector(s);
+const COLORS=['#2F5BFF','#0E9F6E','#E8590C','#D6336C','#7048E8','#0C8599'];
+let apps=[],links={},db=null,q='',cat='All',pref={};
+try{pref=JSON.parse(localStorage.getItem('em-pref'))||{}}catch(e){}
+function savePref(){try{localStorage.setItem('em-pref',JSON.stringify(pref))}catch(e){}}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function url(u){return /^https?:\/\//i.test(u||'')?u:''}
+function applyPref(){
+  const r=document.documentElement;
+  r.style.setProperty('--accent',pref.accent||COLORS[0]);
+  if(pref.theme)r.dataset.theme=pref.theme;else delete r.dataset.theme;
+  document.body.dataset.view=pref.view||'grid';
+  document.querySelectorAll('#sw button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.c===(pref.accent||COLORS[0])));
+  document.querySelectorAll('#theme .btn').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===(pref.theme||'')));
+  document.querySelectorAll('#view .btn').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===(pref.view||'grid')));
+}
+$('#sw').innerHTML=COLORS.map(c=>`<button data-c="${c}" style="background:${c}" aria-label="Accent ${c}"></button>`).join('');
+$('#sw').onclick=e=>{const c=e.target.dataset.c;if(c){pref.accent=c;savePref();applyPref()}};
+$('#theme').onclick=e=>{if(e.target.dataset.v!==undefined){pref.theme=e.target.dataset.v;savePref();applyPref()}};
+$('#view').onclick=e=>{if(e.target.dataset.v){pref.view=e.target.dataset.v;savePref();applyPref()}};
+$('#custBtn').onclick=()=>{$('#add').classList.remove('open');$('#cust').classList.add('open')};
+$('#closeCust').onclick=()=>$('#cust').classList.remove('open');
+$('#addBtn').onclick=()=>{$('#cust').classList.remove('open');$('#add').classList.add('open')};
+$('#closeAdd').onclick=()=>$('#add').classList.remove('open');
+$('#q').oninput=e=>{q=e.target.value.toLowerCase();render()};
+
+function linkBtns(o){
+  const a=[['Google Play',o.play],['GitHub',o.git],['Download',o.web]].filter(x=>url(x[1]));
+  return a.map(x=>`<a href="${esc(url(x[1]))}" target="_blank" rel="noopener">${x[0]}</a>`).join('');
+}
+function render(){
+  const cats=['All',...new Set(apps.map(a=>a.cat).filter(Boolean))];
+  if(!cats.includes(cat))cat='All';
+  $('#chips').innerHTML=cats.length>2?cats.map(c=>`<button class="chip" aria-pressed="${c===cat}" data-c="${esc(c)}">${esc(c)}</button>`).join(''):'';
+  const list=apps.filter(a=>(cat==='All'||a.cat===cat)&&(!q||(a.name+' '+a.desc+' '+a.cat).toLowerCase().includes(q)));
+  const owner=document.body.classList.contains('is-owner');
+  $('#grid').innerHTML=list.length?list.map(a=>`<article class="card"><div class="top"><div class="ico">${esc(a.icon||'📦')}</div><div><h3>${esc(a.name)}</h3><div class="cat">${esc(a.cat||'App')}</div></div></div><p>${esc(a.desc)}</p><div class="dl">${linkBtns(a)}</div>${owner?`<button class="del" data-id="${esc(a.id)}">Remove</button>`:''}</article>`).join('')
+   :`<div class="empty">${apps.length?'No apps match your search.':(owner?'No apps yet. Use Add app to list your first one.':'No apps listed yet. Check back soon.')}</div>`;
+  const g=[['Google Play',links.play],['GitHub',links.git],['Download from this site',links.web]];
+  $('#getLinks').innerHTML=g.map(x=>url(x[1])?`<a href="${esc(url(x[1]))}" target="_blank" rel="noopener">${x[0]}</a>`:`<a class="off" aria-disabled="true">${x[0]} · coming soon</a>`).join('');
+}
+$('#chips').onclick=e=>{if(e.target.dataset.c){cat=e.target.dataset.c;render()}};
+$('#grid').onclick=async e=>{
+  const id=e.target.dataset.id;
+  if(id&&db&&confirm('Remove this app from the store?')){try{await db.collection('apps').doc(id).delete()}catch(x){alert('Could not remove the app. Try again.')}}
+};
+$('#saveApp').onclick=async()=>{
+  const name=$('#aName').value.trim();
+  if(!name){$('#aName').focus();return}
+  if(!db){alert('Sign in to add apps.');return}
+  const id='a'+Date.now().toString(36);
+  try{
+    await db.collection('apps').doc(id).set({name,icon:$('#aIcon').value.trim(),cat:$('#aCat').value.trim(),desc:$('#aDesc').value.trim(),play:$('#aPlay').value.trim(),git:$('#aGit').value.trim(),web:$('#aWeb').value.trim(),t:Date.now()});
+    ['aName','aIcon','aCat','aDesc','aPlay','aGit','aWeb'].forEach(i=>$('#'+i).value='');
+    $('#add').classList.remove('open');
+  }catch(x){alert('Could not add the app. Check that you are the owner and try again.')}
+};
+$('#saveLinks').onclick=async()=>{
+  if(!db)return;
+  try{await db.doc('settings/links').set({play:$('#lPlay').value.trim(),git:$('#lGit').value.trim(),web:$('#lWeb').value.trim()});$('#cust').classList.remove('open')}
+  catch(x){alert('Could not save the links. Try again.')}
+};
+
+apps=[{"id": "a0", "name": "WhatsApp", "icon": "💬", "cat": "Social", "desc": "Free messaging and voice or video calls.", "play": "https://play.google.com/store/apps/details?id=com.whatsapp", "t": 100}, {"id": "a1", "name": "Telegram", "icon": "✈️", "cat": "Social", "desc": "Fast, cloud-based messaging with groups and channels.", "play": "https://play.google.com/store/apps/details?id=org.telegram.messenger", "t": 99}, {"id": "a2", "name": "Signal", "icon": "🔒", "cat": "Social", "desc": "Private messaging with end-to-end encryption.", "play": "https://play.google.com/store/apps/details?id=org.thoughtcrime.securesms", "t": 98}, {"id": "a3", "name": "Discord", "icon": "🎧", "cat": "Social", "desc": "Chat, voice and video for communities and friends.", "play": "https://play.google.com/store/apps/details?id=com.discord", "t": 97}, {"id": "a4", "name": "Instagram", "icon": "📸", "cat": "Social", "desc": "Share photos, reels and stories.", "play": "https://play.google.com/store/apps/details?id=com.instagram.android", "t": 96}, {"id": "a5", "name": "Facebook", "icon": "👥", "cat": "Social", "desc": "Connect with friends, family and groups.", "play": "https://play.google.com/store/apps/details?id=com.facebook.katana", "t": 95}, {"id": "a6", "name": "Snapchat", "icon": "👻", "cat": "Social", "desc": "Snaps, chat and stories with friends.", "play": "https://play.google.com/store/apps/details?id=com.snapchat.android", "t": 94}, {"id": "a7", "name": "X", "icon": "🐦", "cat": "Social", "desc": "News, conversations and live events.", "play": "https://play.google.com/store/apps/details?id=com.twitter.android", "t": 93}, {"id": "a8", "name": "TikTok", "icon": "🎵", "cat": "Entertainment", "desc": "Short videos from creators around the world.", "play": "https://play.google.com/store/apps/details?id=com.zhiliaoapp.musically", "t": 92}, {"id": "a9", "name": "YouTube", "icon": "▶️", "cat": "Entertainment", "desc": "Watch, upload and share videos.", "play": "https://play.google.com/store/apps/details?id=com.google.android.youtube", "t": 91}, {"id": "a10", "name": "Netflix", "icon": "🎬", "cat": "Entertainment", "desc": "Stream films and series.", "play": "https://play.google.com/store/apps/details?id=com.netflix.mediaclient", "t": 90}, {"id": "a11", "name": "Spotify", "icon": "🎶", "cat": "Music", "desc": "Music and podcasts on demand.", "play": "https://play.google.com/store/apps/details?id=com.spotify.music", "t": 89}, {"id": "a12", "name": "VLC", "icon": "🔶", "cat": "Tools", "desc": "Free player for almost any video or audio file.", "play": "https://play.google.com/store/apps/details?id=org.videolan.vlc", "t": 88}, {"id": "a13", "name": "Chrome", "icon": "🌐", "cat": "Tools", "desc": "Google’s fast web browser.", "play": "https://play.google.com/store/apps/details?id=com.android.chrome", "t": 87}, {"id": "a14", "name": "Firefox", "icon": "🦊", "cat": "Tools", "desc": "Private browser with tracking protection.", "play": "https://play.google.com/store/apps/details?id=org.mozilla.firefox", "t": 86}, {"id": "a15", "name": "Gmail", "icon": "✉️", "cat": "Productivity", "desc": "Google’s email app.", "play": "https://play.google.com/store/apps/details?id=com.google.android.gm", "t": 85}, {"id": "a16", "name": "Google Maps", "icon": "🗺️", "cat": "Travel", "desc": "Navigation, traffic and places nearby.", "play": "https://play.google.com/store/apps/details?id=com.google.android.apps.maps", "t": 84}, {"id": "a17", "name": "Zoom", "icon": "📹", "cat": "Productivity", "desc": "Video meetings and webinars.", "play": "https://play.google.com/store/apps/details?id=us.zoom.videomeetings", "t": 83}, {"id": "a18", "name": "Canva", "icon": "🎨", "cat": "Productivity", "desc": "Design posts, videos and documents.", "play": "https://play.google.com/store/apps/details?id=com.canva.editor", "t": 82}, {"id": "a19", "name": "Duolingo", "icon": "🦉", "cat": "Education", "desc": "Learn languages with short daily lessons.", "play": "https://play.google.com/store/apps/details?id=com.duolingo", "t": 81}, {"id": "a20", "name": "CarX Street", "icon": "🏎️", "cat": "Games", "desc": "Open-world street racing with car tuning.", "play": "https://play.google.com/store/search?q=CarX%20Street&c=apps", "t": 80}, {"id": "a21", "name": "CarX Drift Racing 2", "icon": "🚗", "cat": "Games", "desc": "Drift racing with realistic car handling.", "play": "https://play.google.com/store/search?q=CarX%20Drift%20Racing%202&c=apps", "t": 79}, {"id": "a22", "name": "Street Racing 3", "icon": "🏁", "cat": "Games", "desc": "Street racing game.", "play": "https://play.google.com/store/search?q=Street%20Racing%203&c=apps", "t": 78}, {"id": "a23", "name": "Car Parking Multiplayer 2", "icon": "🅿️", "cat": "Games", "desc": "Open-world driving and parking with online players.", "play": "https://play.google.com/store/search?q=Car%20Parking%20Multiplayer%202&c=apps", "t": 77}, {"id": "a24", "name": "Simp Music", "icon": "🎧", "cat": "Music", "desc": "Stream your favourite music.", "play": "", "t": 76}, {"id": "a25", "name": "MediaFire", "icon": "🔥", "cat": "Tools", "desc": "Store, share and download files.", "play": "https://play.google.com/store/search?q=MediaFire&c=apps", "t": 75}, {"id": "a26", "name": "ChatGPT", "icon": "🤖", "cat": "AI", "desc": "AI assistant for questions, writing and ideas.", "play": "https://play.google.com/store/apps/details?id=com.openai.chatgpt", "t": 74}, {"id": "a27", "name": "Toqi AI", "icon": "✨", "cat": "AI", "desc": "AI app.", "play": "https://play.google.com/store/search?q=Toqi%20AI&c=apps", "t": 73}, {"id": "a28", "name": "Game Hub", "icon": "🎮", "cat": "Games", "desc": "A hub for mobile games.", "play": "https://play.google.com/store/search?q=Game%20Hub&c=apps", "t": 72}, {"id": "a29", "name": "Roblox", "icon": "🧱", "cat": "Games", "desc": "Play millions of games made by other players.", "play": "https://play.google.com/store/apps/details?id=com.roblox.client", "t": 71}];
+links={};
+applyPref();render();
+</script>
+</body>
+</html>
